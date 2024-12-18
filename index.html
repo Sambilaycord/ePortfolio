@@ -4,68 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My ePortfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Home Page -->
-    <header>
-        <div class="home">
-            <img src="profile.jpg" alt="Profile Photo" class="profile-photo">
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <img src="profile.jpg" alt="Profile Photo" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
             <h1>Welcome to My ePortfolio</h1>
-            <p>Hi! I'm [Your Name], a passionate [Your Role/Field].</p>
+            <p class="lead">Hi! I'm [Your Name], a passionate [Your Role/Field].</p>
         </div>
     </header>
 
     <!-- About Section -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am a [Your Background]. With skills in [Your Skills], I enjoy working on [Your Interests].</p>
+    <section id="about" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">About Me</h2>
+            <p class="text-center">I am a [Your Background]. With skills in [Your Skills], I enjoy working on [Your Interests].</p>
+        </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <h3>Project 1: [Project Name]</h3>
-            <p>[Brief description of the project.]</p>
-            <img src="project1-screenshot.jpg" alt="Screenshot of Project 1">
-            <a href="https://github.com/yourusername/project1" target="_blank">GitHub Repository</a>
-        </div>
-        <div class="project">
-            <h3>Project 2: [Project Name]</h3>
-            <p>[Brief description of the project.]</p>
-            <img src="project2-screenshot.jpg" alt="Screenshot of Project 2">
-            <a href="https://github.com/yourusername/project2" target="_blank">GitHub Repository</a>
-        </div>
-        <div class="project">
-            <h3>Project 3: [Project Name]</h3>
-            <p>[Brief description of the project.]</p>
-            <img src="project3-screenshot.jpg" alt="Screenshot of Project 3">
-            <a href="https://github.com/yourusername/project3" target="_blank">GitHub Repository</a>
+    <section id="projects" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Projects</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="project1-screenshot.jpg" class="card-img-top" alt="Screenshot of Project 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Project 1: [Project Name]</h5>
+                            <p class="card-text">[Brief description of the project.]</p>
+                            <a href="https://github.com/yourusername/project1" target="_blank" class="btn btn-primary">GitHub Repository</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="project2-screenshot.jpg" class="card-img-top" alt="Screenshot of Project 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Project 2: [Project Name]</h5>
+                            <p class="card-text">[Brief description of the project.]</p>
+                            <a href="https://github.com/yourusername/project2" target="_blank" class="btn btn-primary">GitHub Repository</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="project3-screenshot.jpg" class="card-img-top" alt="Screenshot of Project 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Project 3: [Project Name]</h5>
+                            <p class="card-text">[Brief description of the project.]</p>
+                            <a href="https://github.com/yourusername/project3" target="_blank" class="btn btn-primary">GitHub Repository</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form action="https://formspree.io/f/yourformid" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-
-            <button type="submit">Send</button>
-        </form>
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Contact Me</h2>
+            <form action="https://formspree.io/f/yourformid" method="POST" class="mx-auto" style="max-width: 600px;">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message:</label>
+                    <textarea id="message" name="message" rows="4" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
     </section>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 [Your Name]. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
