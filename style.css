@@ -1,0 +1,251 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+}
+
+hr.solid {
+    border-top: 3px solid #ffffff;
+    width: 20%;
+    margin: 0.5rem auto;
+  }
+
+/* Profile Photo */
+.profile-photo {
+    border: 3px solid #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Styles */
+section {
+    padding: 2rem 0;
+}
+
+#about {
+    background-color: #f8f9fa;
+}
+
+#projects .project {
+    margin-bottom: 1.5rem;
+}
+
+#contact form {
+    margin-top: 1rem;
+}
+
+/* Buttons */
+button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+* {
+    position: relative;
+    box-sizing: border-box;
+  }
+  
+  .iframely-embed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: white;
+  }
+
+#app {
+    z-index: 100;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    padding-bottom: 4vmin;
+    height: 90vh;
+    width: 100%;
+    background: #ede8e2;
+    color: #3a3535;
+}
+
+body {
+    display: grid;
+    padding: 3vmin;
+    background: #e6ded7;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+
+.title {
+    padding-left: 1em;
+    grid-column: 1 / -1;
+    grid-row: 1;
+
+    font-family: "Prata", serif;
+    font-size: 8vw;
+    width: 100%;
+    z-index: 2;
+
+    > .title-inner {
+        display: inline-block;
+    }
+}
+
+@keyframes text-clip {
+from {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
+to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+}
+
+@keyframes outer-left {
+from {
+    transform: translateX(50%);
+}
+to {
+    transform: none;
+}
+}
+
+@keyframes inner-left {
+from {
+    transform: translateX(-50%);
+}
+to {
+    transform: none;
+}
+}
+
+.fname,
+    .lname {
+    animation: outer-left 1s 1s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+
+.title-inner {
+    display: inline-block;
+    animation: inner-left 1s 1s ease both;
+}
+
+.fname-inner {
+    display: inline-block;
+    animation: inner-left 1s 1s ease both,
+    text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+.lname-inner {
+    animation: text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
+}
+
+.title {
+    animation: outer-left 1s 1s ease both;
+}
+
+.fname {
+    > .fname-inner {
+        display: inline-block;
+    }
+}
+
+.lname {
+    display: inline-block;
+}
+
+.image {
+    grid-row: 1;
+    grid-column: 2;
+    margin-left: -2rem;
+    opacity: 0.7;
+
+    animation: image-in 1s cubic-bezier(0.5, 0, 0.1, 1) 2s backwards;
+
+    @keyframes image-in {
+        from {
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        }
+        to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+}
+
+body:active * {
+    animation: none !important;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+/* Cursor */
+.cursor{
+    position: relative;
+    width: 10em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(0, 0, 0, 0.75);
+    font-size: 64px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+/* Animation */
+.typewriter-animation {
+  animation: 
+    typewriter 5s steps(30) 1s 1 normal both, 
+    blinkingCursor 500ms steps(30) 3s 1 normal forwards;
+}
+
+.typewriter-animation2 {
+    animation: 
+      typewriter 5s steps(40) 3s 1 normal both, 
+      blinkingCursor 500ms steps(40) 6s 1 normal forwards;
+  }
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes blinkingCursor{
+  from { border-right-color: rgba(255, 255, 255, 0.75); }
+  to { border-right-color: transparent; }
+}

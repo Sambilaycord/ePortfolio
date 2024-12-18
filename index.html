@@ -5,23 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My ePortfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="app">
+        <div class="title">
+          <div class="title-inner">
+            <div class="fname">
+              <div class="fname-inner">Krystal</div>
+            </div>
+            <div class="lname">
+              <div class="lname-inner">Bacalso</div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="image">
+          <img src='https://images.unsplash.com/photo-1616362355051-6a9f8c434fff?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYxNzE0MTYzNQ&ixlib=rb-1.2.1&q=80&w=800&h=600' alt=''>
+        </div>
+      </div>
+      
+      <a href="https://youtu.be/mBY62jtbMYM" target="_blank" data-keyframers-credit style="color: #000"></a>
+      <script src="https://codepen.io/shshaw/pen/QmZYMG.js"></script>
     <!-- Home Page -->
-    <header class="bg-primary text-white text-center py-5">
+    <header style="background-color: #494444;" class="text-white py-5">
         <div class="container">
-            <img src="profile.jpg" alt="Profile Photo" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
-            <h1>Welcome to My ePortfolio</h1>
-            <p class="lead">Hi! I'm [Your Name], a passionate [Your Role/Field].</p>
+            <div class="row">
+                <div class="col">
+                    <p class="font-weight-light">"Quality is never an accident; it is always the result of intelligent effort." – John Ruskin</p>
+                    <hr class="solid">
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">About Me</h2>
-            <p class="text-center">I am a [Your Background]. With skills in [Your Skills], I enjoy working on [Your Interests].</p>
+            <div class="row align-items-center">
+                <!-- Profile Photo -->
+                <div class="col-md-4 text-center">
+                    <img src="images/profile.jpg" alt="Profile Photo" class="img-fluid rounded mb-3" style="width: 341.25px;">
+                </div>
+                <!-- About Me Text -->
+                <div class="col-md-8 text-center">
+                    <p class="cursor typewriter-animation">Hi there,</p>
+                    <p class="cursor typewriter-animation2" style="font-size: 30px;">let's get to know about me</p>
+                    <p>I am a [Your Background]. With skills in [Your Skills], I enjoy working on [Your Interests].</p>
+                </div>
+            </div>
         </div>
     </section>
 
