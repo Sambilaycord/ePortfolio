@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ePortfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Page -->
+    <header>
+        <div class="home">
+            <img src="profile.jpg" alt="Profile Photo" class="profile-photo">
+            <h1>Welcome to My ePortfolio</h1>
+            <p>Hi! I'm [Your Name], a passionate [Your Role/Field].</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a [Your Background]. With skills in [Your Skills], I enjoy working on [Your Interests].</p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Project 1: [Project Name]</h3>
+            <p>[Brief description of the project.]</p>
+            <img src="project1-screenshot.jpg" alt="Screenshot of Project 1">
+            <a href="https://github.com/yourusername/project1" target="_blank">GitHub Repository</a>
+        </div>
+        <div class="project">
+            <h3>Project 2: [Project Name]</h3>
+            <p>[Brief description of the project.]</p>
+            <img src="project2-screenshot.jpg" alt="Screenshot of Project 2">
+            <a href="https://github.com/yourusername/project2" target="_blank">GitHub Repository</a>
+        </div>
+        <div class="project">
+            <h3>Project 3: [Project Name]</h3>
+            <p>[Brief description of the project.]</p>
+            <img src="project3-screenshot.jpg" alt="Screenshot of Project 3">
+            <a href="https://github.com/yourusername/project3" target="_blank">GitHub Repository</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form action="https://formspree.io/f/yourformid" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 [Your Name]. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
