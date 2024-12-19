@@ -22,6 +22,11 @@ hr.solid {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+p{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 /* Section Styles */
 section {
     padding: 2rem 0;
@@ -218,34 +223,27 @@ body:active * {
 
 /* Cursor */
 .cursor{
-    position: relative;
-    width: 10em;
-    margin: 0 auto;
-    border-right: 2px solid rgba(0, 0, 0, 0.75);
-    font-size: 64px;
-    text-align: center;
+    width: 22ch;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
     white-space: nowrap;
     overflow: hidden;
-    transform: translateY(-50%);    
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 2em;
 }
 /* Animation */
 .typewriter-animation {
-  animation: 
-    typewriter 5s steps(30) 1s 1 normal both, 
-    blinkingCursor 500ms steps(30) 3s 1 normal forwards;
-}
-
-.typewriter-animation2 {
     animation: 
-      typewriter 5s steps(40) 3s 1 normal both, 
-      blinkingCursor 500ms steps(40) 6s 1 normal forwards;
-  }
+        typewriter 5s steps(30) 1s 1 normal both, 
+        blinkingCursor 500ms steps(30) 3s 1 normal forwards;
+}
 
 @keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
-}
+    from {
+        width: 0
+      }
+    }
 @keyframes blinkingCursor{
-  from { border-right-color: rgba(255, 255, 255, 0.75); }
-  to { border-right-color: transparent; }
+    from { border-right-color: rgba(255, 255, 255, 0.75); }
+    to { border-right-color: transparent; }
 }
