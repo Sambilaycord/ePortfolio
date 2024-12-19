@@ -22,11 +22,6 @@ hr.solid {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-p{
-    margin-left: 10%;
-    margin-right: 10%;
-}
-
 /* Section Styles */
 section {
     padding: 2rem 0;
@@ -34,6 +29,17 @@ section {
 
 #about {
     background-color: #f8f9fa;
+    margin-top: 2rem;
+}
+
+#about p{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#skills {
+    background-color: #f8f9fa;
+    margin-top: 2rem;
 }
 
 #projects .project {
@@ -61,7 +67,7 @@ button:hover {
 
 /* Footer Styles */
 footer {
-    background-color: #343a40;
+    background-color: #494444;
     color: #fff;
     text-align: center;
     padding: 1rem 0;
@@ -112,6 +118,8 @@ body {
     background: #e6ded7;
 }
 
+
+/* Header */
 @import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
 
 .title {
@@ -219,6 +227,8 @@ body:active * {
     animation: none !important;
 }
 
+
+/* Typewriter Animation */
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
 
 /* Cursor */
@@ -247,3 +257,228 @@ body:active * {
     from { border-right-color: rgba(255, 255, 255, 0.75); }
     to { border-right-color: transparent; }
 }
+
+
+/* Frame for img */
+.profile-img {
+    --s: 10px; 
+    padding: var(--s);
+    border: calc(2*var(--s)) solid #0000;
+    outline: 1px solid #494444;
+    outline-offset: calc(-1*var(--s));
+    background: conic-gradient(from 90deg at 1px 1px,#0000 25%,#000 0);
+  }
+
+
+/* Skill Section */
+.inner {
+    padding-top: 20px;
+}
+
+#skills {
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+}
+#skills::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4px;
+    width: 100px;
+}
+
+#skills .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Ensures items wrap when necessary */
+    justify-content: space-around; /* Space items evenly */
+    align-items: flex-start;
+    text-align: center;
+    padding: 1rem 80px;
+    font-size: 1.2rem;
+}
+
+.skill-box {
+    width: 30%; /* Adjust width as needed */
+    padding: 1rem;
+    color: #ddd;
+    cursor: pointer;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.skill-box:hover > .skill-title:after, .skill-box:hover > .skill-title:before{
+    width: 35px;
+}
+
+.skill-box:hover{
+    transform: translateY(-10px);
+}
+
+.skill-title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.skill-title:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    width: 0;
+    height: 4px;
+    border-radius: 2px 0 0 2px;
+    background-color: #2ecc71;
+    transition: .5s;
+}
+
+.skill-title:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 4px;
+    border-radius: 0 2px 2px 0;
+    background-color: #2ecc71;
+    transition: .5s;
+}
+
+#skills img{
+    width: 90px;
+    height: 90px;
+    position: relative;
+    border-radius: 45px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#skills img:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    Left: 0;
+    width: 50%;
+    height: 90px;
+    background: rgba(100, 100, 100, 0.5);
+    border-radius: 45px 0 0 45px;
+}
+
+.skill-title h3{
+    color: #362f2f;
+    margin-top: 0.5rem;
+}
+
+#skills h1 {
+    font-size: 2em;
+    color: #362f2f;
+    cursor: pointer;
+
+    --s: 0.1em; /* Thickness of the line */
+    --c: #2c4bff; /* Line color */
+    
+    padding-bottom: var(--s);
+    background: 
+        linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+        linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+    background-clip: text, padding-box;
+    -webkit-background-clip: text, padding-box;
+    -webkit-text-fill-color: transparent; /* Makes the text visible via gradient */
+    transition: 0.5s ease-in-out;
+}
+
+#skills h1:hover {
+    --_p: 100%; /* Animate to full width on hover */
+}
+
+#skills p{
+    color: #3f3737;
+}
+
+.skill-icon{
+    width: 50px;
+    z-index: 2;
+}
+
+@media screen and (max-width: 990px) {
+    #skills .container {
+        display: grid; /* Switch to grid layout */
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        gap: 1rem; /* Add spacing between items */
+        padding: 2rem 50px;
+    }
+
+    .skill-box {
+        width: 100%; /* Take full width in grid layout */
+    }
+}
+
+@media screen and (max-width: 650px) {
+    #skills .container {
+        grid-template-columns: 1fr; /* Single column for small screens */
+    }
+}
+
+
+/* Container Styling for Layout */
+#projects .container {
+    margin-top: 2rem;
+  }
+  
+  /* Card Styling */
+  .card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none; /* Optional: For a cleaner look */
+  }
+  
+  /* Hover Effect */
+  .card:hover {
+    transform: translateY(-10px); /* Slightly lift the card */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add a shadow */
+  }
+  
+  /* Optional: Enhance Card Image on Hover */
+  .card-img-top {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Optional: Button Animation */
+  .card-body .btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .card-body .btn:hover {
+    background-color: #2c4bff; /* Change to a vibrant color */
+    color: #fff;
+  }
+
+  .card-title{
+    font-size: 2em;
+    color: #362f2f;
+    cursor: pointer;
+
+    --s: 0.1em; /* Thickness of the line */
+    --c: #2c4bff; /* Line color */
+    
+    padding-bottom: var(--s);
+    background: 
+        linear-gradient(90deg,var(--c) 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+        linear-gradient(var(--c) 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+    background-clip: text, padding-box;
+    -webkit-background-clip: text, padding-box;
+    -webkit-text-fill-color: transparent; /* Makes the text visible via gradient */
+    transition: 0.5s ease-in-out;
+}
+
+.card-title:hover {
+    --_p: 100%; /* Animate to full width on hover */
+}
+
