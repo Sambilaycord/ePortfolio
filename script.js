@@ -37,9 +37,16 @@ document.addEventListener('DOMContentLoaded', function() {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-                current = section.getAttribute('id');
+            const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
+            const scrollPosition = window.scrollY + window.innerHeight;
+
+            // Log section positions for debugging
+            console.log(`Section ID: ${section.id}, Top: ${sectionTop}, Bottom: ${sectionBottom}, Scroll Position: ${scrollPosition}`);
+
+            // Check if the section is visible in the viewport
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                current = section.id;
             }
         });
 
