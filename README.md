@@ -2,7 +2,11 @@
 
 ## Description
 
-Welcome to my ePortfolio! This project is a personal portfolio website where I showcase my skills, projects, and accomplishments. The ePortfolio includes sections such as **About Me**, **Projects**, **Skills**, and **Contact Information**, providing a detailed overview of my professional background and capabilities. The website is designed to be clean, responsive, and easy to navigate, highlighting my work and achievements in an organized and interactive format.
+Welcome to my ePortfolio! This project is a personal portfolio website where I showcase my skills, projects, and accomplishments. 
+
+![Portfolio Screenshot](images/portfolio-screenshot1.png)
+
+The ePortfolio includes sections such as **About Me**, **Projects**, **Skills**, and **Contact Information**, providing a detailed overview of my professional background and capabilities. The website is designed to be clean, responsive, and easy to navigate, highlighting my work and achievements in an organized and interactive format.
 
 Key features include:
 - A dynamic navbar that changes style on scroll.
