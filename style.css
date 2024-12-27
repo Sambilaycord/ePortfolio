@@ -97,6 +97,7 @@ button:hover {
 }
 
 .nav-link.active {
+    font-weight: bold; 
     color: #ffd700; 
 }
 
