@@ -484,6 +484,7 @@ body {
   /* Optional: Enhance Card Image on Hover */
   .card-img-top {
     transition: transform 0.3s ease-in-out;
+    height: 200px;
   }
   
   /* Optional: Button Animation */
@@ -517,4 +518,6 @@ body {
 .card-title:hover {
     --_p: 100%; /* Animate to full width on hover */
 }
+
+
 
