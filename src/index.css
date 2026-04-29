@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FAF8F5;
+  --color-secondary: #FFFFFF;
+  --color-text-main: #4A403A;
+  --color-text-muted: #7A6F68;
+  --color-accent: #D4A373;
+  --color-accent-light: #CCD5AE;
+  --color-divider: #EAE6E1;
+
+  --shadow-sm: 0 4px 6px -1px rgba(74, 64, 58, 0.05), 0 2px 4px -1px rgba(74, 64, 58, 0.03);
+  --shadow-md: 0 10px 15px -3px rgba(74, 64, 58, 0.08), 0 4px 6px -2px rgba(74, 64, 58, 0.04);
+  --shadow-hover: 0 20px 25px -5px rgba(74, 64, 58, 0.1), 0 10px 10px -5px rgba(74, 64, 58, 0.04);
+
+  --font-heading: 'Lora', serif;
+  --font-body: 'Outfit', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+/* Header SVG Styles */
+#header {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-primary);
+  overflow: hidden;
+}
+
+#page-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  width: 100%;
+  min-height: 322px;
+}
+
+.waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  min-width: 100%;
+  min-height: 70%;
+  margin: auto 0;
+}
+
+.text {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 83%;
+  height: 100%;
+  margin: auto;
+}
+
+.group:before,
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.group {
+  zoom: 1;
+  margin-bottom: 2rem;
+}
+
+.waves>path {
+  animation: waveAnim 17390ms ease-in-out infinite alternate-reverse both;
+  animation-timing-function: cubic-bezier(.25, 0, .75, 1);
+  will-change: transform;
+}
+
+.waves>path:nth-of-type(1) {
+  animation-duration: 20580ms;
+}
+
+.waves>path:nth-of-type(2) {
+  animation-delay: -2690ms;
+  animation-duration: 13580ms;
+}
+
+#header g>path:nth-of-type(1) {
+  animation-delay: -820ms;
+  animation-duration: 10730ms;
+}
+
+.waves>path:nth-of-type(1),
+#header g>path:nth-of-type(2) {
+  animation-direction: alternate;
+}
+
+@keyframes waveAnim {
+  0% {
+    transform: translateX(-750px);
+  }
+
+  100% {
+    transform: translateX(-20px);
+  }
+}
