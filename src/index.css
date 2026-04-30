@@ -9,6 +9,7 @@
   --color-accent: #D4A373;
   --color-accent-light: #CCD5AE;
   --color-divider: #EAE6E1;
+  --color-header-wave: #E2A98B;
 
   --shadow-sm: 0 4px 6px -1px rgba(74, 64, 58, 0.05), 0 2px 4px -1px rgba(74, 64, 58, 0.03);
   --shadow-md: 0 10px 15px -3px rgba(74, 64, 58, 0.08), 0 4px 6px -2px rgba(74, 64, 58, 0.04);
@@ -30,6 +31,7 @@
   --color-accent: #D6AD82;
   --color-accent-light: #AAB88C;
   --color-divider: #4D443D;
+  --color-header-wave: #8A5A44;
 }
 
 html {
@@ -162,9 +164,12 @@ h6 {
 }
 
 @keyframes blinkingCursor {
-  0%, 100% {
+
+  0%,
+  100% {
     border-right-color: var(--color-text-main, #4A403A);
   }
+
   50% {
     border-right-color: transparent;
   }

@@ -3,6 +3,10 @@ import { Code2, Database, Layout, Gamepad2, ArrowRight, Mail, Sun, Moon } from '
 
 // Import images
 import profileImg from './assets/profile.jpg'
+import meldcxImg from './assets/meldcx.jpg'
+import cs3Img from './assets/cs3.jpg'
+import meldcxLogo from './assets/meldc_logo.png'
+import cs3Logo from './assets/cs3_logo.png'
 
 // Logo assets
 import assemblyLogo from './assets/assembly.jpg'
@@ -57,6 +61,7 @@ function App() {
             <div className="hidden md:flex gap-8 items-center">
               <a href="#about" className="text-sm font-medium uppercase tracking-wide text-text-muted hover:text-accent transition-colors duration-300">About</a>
               <a href="#tech" className="text-sm font-medium uppercase tracking-wide text-text-muted hover:text-accent transition-colors duration-300">Skills</a>
+              <a href="#experience" className="text-sm font-medium uppercase tracking-wide text-text-muted hover:text-accent transition-colors duration-300">Experience</a>
               <a href="#projects" className="text-sm font-medium uppercase tracking-wide text-text-muted hover:text-accent transition-colors duration-300">Projects</a>
             </div>
             <button
@@ -83,7 +88,7 @@ function App() {
               </linearGradient>
             </defs>
             <path fill="url(#a)" d="M2662.6 1S2532 41.2 2435 40.2c-19.6-.2-37.3-1.3-53.5-2.8 0 0-421.3-59.4-541-28.6-119.8 30.6-206.2 75.7-391 73.3-198.8-2-225.3-15-370.2-50-145-35-218 37-373.3 36-19.6 0-37.5-1-53.7-3 0 0-282.7-36-373.4-38C139 26 75 46-1 46v106c17-1.4 20-2.3 37.6-1.2 130.6 8.4 210 56.3 287 62.4 77 6 262-25 329.3-23.6 67 1.4 107 22.6 193 23.4 155 1.5 249-71 380-62.5 130 8.5 209 56.3 287 62.5 77 6 126-18 188-18 61.4 0 247-38 307.4-46 159.3-20 281.2 29 348.4 30 67 2 132.2 6 217.4 7 39.3 0 87-11 87-11V1z" />
-            <path fill="var(--color-secondary)" d="M2663.6 73.2S2577 92 2529 89c-130.7-8.5-209.5-56.3-286.7-62.4s-125.7 18-188.3 18c-5 0-10-.4-14.5-.7-52-5-149.2-43-220.7-39-31.7 2-64 14-96.4 30-160.4 80-230.2-5.6-340.4-18-110-12-146.6 20-274 36S820.4 0 605.8 0C450.8 0 356 71 225.2 62.2 128 56 60.7 28-.3 11.2V104c22 7.3 46 14.2 70.4 16.7 110 12.3 147-19.3 275-35.5s350 39.8 369 43c27 4.3 59 8 94 10 13 .5 26 1 39 1 156 2 250-70.3 381-62 130.5 8.2 209.5 56.3 286.7 62 77 6.4 125.8-18 188.3-17.5 5 0 10 .2 14.3.6 52 5 145 49.5 220.7 38.2 32-5 64-15 96.6-31 160.5-79.4 230.3 6 340 18.4 110 12 146.3-20 273.7-36l15.5-2V73l1-.5z" />
+            <path fill="var(--color-header-wave)" d="M2663.6 73.2S2577 92 2529 89c-130.7-8.5-209.5-56.3-286.7-62.4s-125.7 18-188.3 18c-5 0-10-.4-14.5-.7-52-5-149.2-43-220.7-39-31.7 2-64 14-96.4 30-160.4 80-230.2-5.6-340.4-18-110-12-146.6 20-274 36S820.4 0 605.8 0C450.8 0 356 71 225.2 62.2 128 56 60.7 28-.3 11.2V104c22 7.3 46 14.2 70.4 16.7 110 12.3 147-19.3 275-35.5s350 39.8 369 43c27 4.3 59 8 94 10 13 .5 26 1 39 1 156 2 250-70.3 381-62 130.5 8.2 209.5 56.3 286.7 62 77 6.4 125.8-18 188.3-17.5 5 0 10 .2 14.3.6 52 5 145 49.5 220.7 38.2 32-5 64-15 96.6-31 160.5-79.4 230.3 6 340 18.4 110 12 146.3-20 273.7-36l15.5-2V73l1-.5z" />
             <g fill="none" stroke="var(--color-divider)" strokeWidth="1">
               <path d="M0 51.4c3.4.6 7.7 1.4 11 2.3 133.2 34 224.3 34 308.6 34 110.2 0 116.7 36.6 229.8 26 113-11 128.7-44 222-42.6C865 73 889 38 1002 27c113-10.8 119.6 25.6 229.8 25.6 84.4 0 175.4 0 308.6 34 133 34.2 277-73 379.4-84.3 204-22.5 283.6 128.7 283.6 128.7" />
               <path d="M0 6C115.7-6 198.3 76.6 308 76.6c109.6 0 131.8-20 223-28.3 114.3-10.2 238.2 0 238.2 0s124 10.2 238.3 0c91-8.2 113.2-28 223-28S1425 103 1541 91c115.8-11.8 153.3-69 269.3-84.6 116-15.5 198.4 71 308 71 109.8 0 131.8-20 223-28 114-10.2 237.7 0 237.7 0s37.4 2.4 82.8 3.7" />
@@ -174,8 +179,50 @@ function App() {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience" className="w-full bg-secondary py-24">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-20 relative">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold inline-block relative pb-4 text-text-main">
+              Experience
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-accent rounded-full"></div>
+            </h2>
+          </div>
+
+          <div className="relative border-l-2 border-divider md:border-0 md:ml-0 ml-6">
+            {/* Desktop Center Line */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-divider -translate-x-1/2"></div>
+
+            <div className="space-y-16">
+              <ExperienceCard
+                title="Intern"
+                company="MeldCX Philippines Inc."
+                date="June 2025 - July 2025"
+                logoImg={meldcxLogo}
+                eventImg={meldcxImg}
+                side="left"
+              >
+                My work began by diving deep into the existing architecture, hunting down and fixing complex frontend bugs to stabilize the system. After ensuring reliability, I was tasked with optimizing the web responsiveness for a large-scale Multi-Level Marketing (MLM) platform. This evolved into taking on the task of translating static Figma designs into highly interactive user interfaces using React, TypeScript, and Tailwind CSS. I treated development as a holistic process, balancing my core UI work with rigorous manual QA testing, reporting defects, and managing strict version control by resolving GitHub merge conflicts to ensure seamless deployments.
+              </ExperienceCard>
+
+              <ExperienceCard
+                title="Treasurer"
+                company="Computer Science Student Society (CS³)"
+                date="Founding Member"
+                logoImg={cs3Logo}
+                eventImg={cs3Img}
+                imageShape="square"
+                side="right"
+              >
+                As a pioneering student in a newly established department, I took on the role of founding Treasurer for the Computer Science Student Society (CS³). With no senior cohorts to guide us, our executive board had to build the organization's foundations entirely from the ground up. I took ownership of our financial operations, establishing transparent fund allocation to support our very first student-led initiatives, technical workshops, and events. By strategizing closely with department faculty and the executive board, we didn't just find our footing—we excelled. Our collective effort and administrative leadership culminated in winning the Gold Unit Organization Award, proving our ability to build a highly effective society in our inaugural year.
+              </ExperienceCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Projects Section */}
-      <section id="projects" className="w-full bg-secondary py-24">
+      <section id="projects" className="w-full bg-primary py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16 relative">
             <h2 className="text-3xl md:text-4xl font-heading font-bold inline-block relative pb-4 text-text-main">
@@ -254,7 +301,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="w-full bg-primary py-16 text-center border-t border-divider">
+      <footer id="contact" className="w-full bg-secondary py-16 text-center border-t border-divider">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h3 className="text-2xl font-heading font-bold mb-8 text-text-main">Let's Connect</h3>
           <div className="flex justify-center gap-6 mb-8">
@@ -312,8 +359,8 @@ function ProjectCategory({ title, icon, children }) {
 
 function ProjectCard({ title, description, img, objectFit = 'cover', link = '#' }) {
   return (
-    <div className="group bg-primary rounded-2xl overflow-hidden shadow-[0_4px_6px_-1px_rgba(74,64,58,0.05)] border border-divider flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_25px_-5px_rgba(74,64,58,0.1)]">
-      <div className="h-48 overflow-hidden border-b border-divider bg-secondary flex items-center justify-center relative">
+    <div className="group bg-secondary rounded-2xl overflow-hidden shadow-[0_4px_6px_-1px_rgba(74,64,58,0.05)] border border-divider flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_25px_-5px_rgba(74,64,58,0.1)]">
+      <div className="h-48 overflow-hidden border-b border-divider bg-primary flex items-center justify-center relative">
         <img
           src={img}
           alt={title}
@@ -340,6 +387,72 @@ function Github({ size = 24 }) {
 function Linkedin({ size = 24 }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+  )
+}
+
+function ExperienceCard({ title, company, date, logoImg, eventImg, imageShape, side, children }) {
+  const isLeft = side === 'left';
+
+  const textBox = (
+    <div className="w-full md:w-[45%]">
+      <div className="group bg-primary p-6 md:p-8 rounded-2xl shadow-sm border border-divider transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-accent-light/50">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+          {logoImg && (
+            <img src={logoImg} alt={company} className="w-14 h-14 rounded-full object-cover border-2 border-divider shrink-0 shadow-sm" />
+          )}
+          <div className="flex-1 text-left w-full">
+            <h3 className="text-xl font-heading font-bold text-text-main">{title}</h3>
+            <p className="text-accent font-semibold">{company}</p>
+            <p className="text-sm text-text-muted mt-1">{date}</p>
+          </div>
+        </div>
+        <p className="text-text-muted text-sm leading-relaxed text-left">
+          {children}
+        </p>
+      </div>
+    </div>
+  );
+
+  const imgClass = imageShape === 'square'
+    ? "w-full aspect-square max-w-sm rounded-2xl shadow-sm border border-divider object-cover transition-all duration-300 hover:shadow-md hover:scale-[1.02]"
+    : "w-full h-48 md:h-64 rounded-2xl shadow-sm border border-divider object-cover transition-all duration-300 hover:shadow-md hover:scale-[1.02]";
+
+  const imageBox = (
+    <div className="w-full md:w-[45%] flex items-center justify-center">
+      {eventImg && (
+        <img src={eventImg} alt={`${company} event`} className={imgClass} />
+      )}
+    </div>
+  );
+
+  return (
+    <div className="relative w-full">
+      {/* Timeline Dot */}
+      <div className="absolute top-0 md:top-1/2 left-[-25px] md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-12 h-12 rounded-full border-4 border-secondary bg-accent z-10 flex items-center justify-center shadow-md">
+        <div className="w-3 h-3 bg-primary rounded-full"></div>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="flex md:hidden flex-col gap-6 pl-8 sm:pl-12">
+        {textBox}
+        {imageBox}
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:flex flex-row justify-between items-center">
+        {isLeft ? (
+          <>
+            {textBox}
+            {imageBox}
+          </>
+        ) : (
+          <>
+            {imageBox}
+            {textBox}
+          </>
+        )}
+      </div>
+    </div>
   )
 }
 
