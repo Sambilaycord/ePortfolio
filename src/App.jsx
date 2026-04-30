@@ -69,10 +69,10 @@ function App() {
       <section id="about" className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 md:py-32 flex flex-col-reverse md:flex-row items-center gap-12">
           <div className="flex-1 text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-text-main">Hi, I'm Krystal</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-text-main cursor typewriter-animation">Hi, I'm Krystal</h1>
             <p className="text-lg text-text-muted mb-8 leading-relaxed max-w-2xl mx-auto md:mx-0">
-              A passionate developer who creates cozy, elegant, and efficient digital experiences.
-              I specialize in full-stack development with a keen eye for clean design and smooth animations.
+              Full-Stack Software Engineer & ML Researcher. I specialize in elegant web platforms and
+              dynamic machine learning models, turning complex logic into cozy, seamless user experiences.
             </p>
             <a href="#contact" className="inline-flex items-center gap-2 bg-accent text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-accent-light hover:text-text-main hover:-translate-y-1 shadow-[0_4px_6px_-1px_rgba(74,64,58,0.1)] hover:shadow-[0_10px_15px_-3px_rgba(74,64,58,0.15)]">
               <Mail size={18} /> Let's Talk

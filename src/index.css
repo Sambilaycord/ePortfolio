@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro');
 @import "tailwindcss";
 
 @theme {
@@ -125,5 +126,36 @@ h6 {
 
   100% {
     transform: translateX(-20px);
+  }
+}
+
+/* Typewriter Animation */
+.cursor {
+  width: 15ch;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: 'Anonymous Pro', monospace;
+}
+
+/* Animation */
+.typewriter-animation {
+  animation:
+    typewriter 3s steps(30) 1s 1 normal both,
+    blinkingCursor 1s step-end 4s infinite;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blinkingCursor {
+  0%, 100% {
+    border-right-color: var(--color-text-main, #4A403A);
+  }
+  50% {
+    border-right-color: transparent;
   }
 }
