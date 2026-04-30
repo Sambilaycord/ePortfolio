@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Code2, Database, Layout, Gamepad2, ArrowRight, Mail, Sun, Moon } from 'lucide-react'
+import { Code2, Database, Layout, Gamepad2, ArrowRight, Mail, Sun, Moon, Music, Play, Pause, Volume2, VolumeX, Disc, X } from 'lucide-react'
+import ReactPlayer from 'react-player'
 
 // Import images
 import profileImg from './assets/profile.jpg'
@@ -202,7 +203,7 @@ function App() {
                 eventImg={meldcxImg}
                 side="left"
               >
-                My work began by diving deep into the existing architecture, hunting down and fixing complex frontend bugs to stabilize the system. After ensuring reliability, I was tasked with optimizing the web responsiveness for a large-scale Multi-Level Marketing (MLM) platform. This evolved into taking on the task of translating static Figma designs into highly interactive user interfaces using React, TypeScript, and Tailwind CSS. I treated development as a holistic process, balancing my core UI work with rigorous manual QA testing, reporting defects, and managing strict version control by resolving GitHub merge conflicts to ensure seamless deployments.
+                My work in MeldCX began by diving deep into the existing architecture, hunting down and fixing complex frontend bugs to stabilize the system. After ensuring reliability, I was tasked with optimizing the web responsiveness for a large-scale Multi-Level Marketing (MLM) platform. This evolved into taking on the task of translating static Figma designs into highly interactive user interfaces using React, TypeScript, and Tailwind CSS. I treated development as a holistic process, balancing my core UI work with rigorous manual QA testing, reporting defects, and managing strict version control by resolving GitHub merge conflicts to ensure seamless deployments.
               </ExperienceCard>
 
               <ExperienceCard
@@ -318,6 +319,7 @@ function App() {
           <p className="text-text-muted text-sm">© {new Date().getFullYear()} Krystal Bacalso. Designed with cozy vibes.</p>
         </div>
       </footer>
+      <MusicPlayer />
     </div>
   )
 }
@@ -451,6 +453,62 @@ function ExperienceCard({ title, company, date, logoImg, eventImg, imageShape, s
             {textBox}
           </>
         )}
+      </div>
+    </div>
+  )
+}
+
+function MusicPlayer() {
+  const [isOpen, setIsOpen] = useState(false);
+  // User's YouTube playlist embedded visibly in the widget
+  const embedSrc = "https://www.youtube.com/embed?listType=playlist&list=PL9RQF5Uh7l-n8DoGOPELOXrT6Bwv3m9Xj&autoplay=0&controls=1&loop=1";
+
+  return (
+    <div className="fixed bottom-2 right-6 z-50 flex flex-col items-end">
+
+      {/* Floating Action Button — always on top */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-14 h-14 rounded-full bg-primary border border-divider shadow-md flex items-center justify-center text-accent hover:text-accent-light hover:border-accent-light hover:-translate-y-1 transition-all duration-300 mb-4"
+        aria-label="Toggle Music Player"
+      >
+        {isOpen ? <X size={22} /> : <Music size={24} />}
+      </button>
+
+      {/* Expanded Widget — appears below the FAB */}
+      <div
+        className="bg-primary border border-divider shadow-lg rounded-2xl overflow-hidden transition-all duration-300 origin-top-right"
+        style={{
+          width: isOpen ? '300px' : '0',
+          height: isOpen ? 'auto' : '0',
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? 'auto' : 'none',
+        }}
+      >
+        {/* Widget Header */}
+        <div className="flex w-full justify-between items-center px-4 py-3 border-b border-divider">
+          <span className="text-sm font-heading font-bold text-text-main flex items-center gap-2">
+            <Music size={14} className="text-accent" /> Now Playing
+          </span>
+          <button onClick={() => setIsOpen(false)} className="text-text-muted hover:text-accent transition-colors">
+            <X size={16} />
+          </button>
+        </div>
+
+        {/* YouTube Embed */}
+        {isOpen && (
+          <iframe
+            src={embedSrc}
+            width="300"
+            height="169"
+            title="Background Music"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="block w-full rounded-b-2xl"
+          />
+        )}
+
       </div>
     </div>
   )
