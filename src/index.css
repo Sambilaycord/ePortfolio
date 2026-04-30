@@ -22,6 +22,16 @@
   --radius-lg: 24px;
 }
 
+.dark {
+  --color-primary: #2A2421;
+  --color-secondary: #362F2B;
+  --color-text-main: #EAE6E1;
+  --color-text-muted: #B5AFA6;
+  --color-accent: #D6AD82;
+  --color-accent-light: #AAB88C;
+  --color-divider: #4D443D;
+}
+
 html {
   scroll-behavior: smooth;
 }
