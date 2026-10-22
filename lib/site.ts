@@ -14,7 +14,10 @@ export const owner = {
 
 export const helloHref = `mailto:${owner.email}`;
 
-/** In the order the page tells it. Each points at an anchor placed where its section is fully shown, not its first frame. */
+/**
+ * In the order the page tells it. Each points at an anchor placed where its section is fully shown, not its first frame.
+ * Links render them as `/#…`, so they lead home from any other page, such as the 404.
+ */
 export const siteNavigation = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },

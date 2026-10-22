@@ -1,4 +1,5 @@
 import { ArrowUp } from "lucide-react";
+import Link from "next/link";
 
 import { owner } from "@/lib/site";
 
@@ -15,10 +16,10 @@ export function SiteFooter() {
         </p>
         <div className="flex items-center gap-6">
           <HomeClock />
-          <a href="#top" className="group inline-flex items-center gap-1.5 font-semibold text-brand-fg hover:text-brand-accent">
+          <Link href="/#top" className="group inline-flex items-center gap-1.5 font-semibold text-brand-fg hover:text-brand-accent">
             Back to top
             <ArrowUp aria-hidden="true" className="size-4 transition-transform group-hover:-translate-y-0.5" />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

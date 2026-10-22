@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { helloHref, owner } from "@/lib/site";
 
 import { CONTAINER } from "./section";
@@ -17,13 +19,13 @@ export function SiteHeader() {
       </a>
 
       <div className={`${CONTAINER} flex h-15 items-center justify-between gap-4 px-6 lg:px-10`}>
-        <a href="#top" className="group flex shrink-0 items-center gap-2 text-brand-fg">
+        <Link href="/#top" className="group flex shrink-0 items-center gap-2 text-brand-fg">
           <SteamingMug className="size-7 text-brand-accent transition-transform group-hover:-rotate-6" />
           <span className="text-display text-xl">
             {owner.name.toLowerCase()}
             <span className="text-brand-accent">.</span>
           </span>
-        </a>
+        </Link>
 
         <SiteNav />
 

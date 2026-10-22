@@ -68,7 +68,7 @@ export function SiteNav() {
         return (
           <a
             key={item.href}
-            href={item.href}
+            href={`/${item.href}`}
             aria-current={current ? "location" : undefined}
             className={cn("relative py-1 transition-colors hover:text-brand-fg", current && "text-brand-accent hover:text-brand-accent")}
           >
@@ -184,7 +184,7 @@ function SheetLinks() {
           return (
             <li key={item.href}>
               <a
-                href={item.href}
+                href={`/${item.href}`}
                 aria-current={current ? "location" : undefined}
                 className={cn("flex items-baseline gap-4 py-3 text-brand-fg", current && "text-brand-accent")}
               >
