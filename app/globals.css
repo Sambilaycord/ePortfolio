@@ -1,0 +1,2136 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@custom-variant dark (&:is(.dark *));
+/* An upright phone with little height, like the smaller iPhones, and any phone turned on its side. */
+@custom-variant short-phone (@media (max-width: 47.99rem) and (max-height: 44rem));
+@custom-variant landscape-phone (@media (orientation: landscape) and (max-height: 30rem));
+
+/*
+ * The room at golden hour: oat paper, cocoa ink, a terracotta accent and honey light.
+ * Under `.dark` the sun is down and the desk lamp is on, so honey becomes the accent
+ * and the walls go to deep cocoa.
+ */
+:root {
+  color-scheme: light;
+
+  --brand-bg: #f7f0e5;
+  --brand-bg-2: #efe3cf;
+  --brand-surface: #fffaf2;
+  --brand-tint: #f3dcc6;
+  --brand-fg: #3a2a21;
+  --brand-muted: #85695a;
+  --brand-dim: #dcc7ad;
+  --brand-line: #e6d6c0;
+  --brand-accent: #c45d34;
+  --brand-accent-2: #e3a24f;
+  --brand-accent-3: #f2c98a;
+  --brand-sage: #7d9a78;
+  --brand-blush: #e9b8a3;
+  --brand-tint-fg: #9a4423;
+  --brand-on-accent: #fffaf2;
+  /* What the light itself is painted in: sunbeams by day, the lamp by night. */
+  --brand-glow: #ffd79a;
+  /* The cocoa card and anything set on it; these do not change with the theme. */
+  --brand-cocoa: #3a2a21;
+  --brand-on-cocoa: #f7ead8;
+  /* The hills along the bottom of the evening sky, which the footer carries on in. */
+  --evening-hills: #3a2238;
+}
+
+/* Declared after :root so it wins: both selectors carry the same specificity. */
+.dark {
+  color-scheme: dark;
+
+  --brand-bg: #1b1411;
+  --brand-bg-2: #261c17;
+  --brand-surface: #2a1f1a;
+  --brand-tint: #3a2a20;
+  --brand-fg: #f4e7d4;
+  --brand-muted: #bba38f;
+  --brand-dim: #4a382c;
+  --brand-line: #3d2e25;
+  --brand-accent: #f0a65a;
+  --brand-accent-2: #e07a4b;
+  --brand-accent-3: #ffd59a;
+  --brand-sage: #9db897;
+  --brand-blush: #d99a84;
+  --brand-tint-fg: #ffc88a;
+  --brand-on-accent: #241812;
+  --brand-glow: #ffb766;
+  --brand-cocoa: #120d0b;
+  --evening-hills: #241c33;
+}
+
+@theme inline {
+  --font-sans: var(--font-nunito);
+  --font-serif: var(--font-fraunces);
+  --font-mono: var(--font-geist-mono);
+  --font-hand: var(--font-caveat);
+
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-tint: var(--brand-tint);
+  --color-brand-tint-fg: var(--brand-tint-fg);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-dim: var(--brand-dim);
+  --color-brand-line: var(--brand-line);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-2: var(--brand-accent-2);
+  --color-brand-accent-3: var(--brand-accent-3);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-blush: var(--brand-blush);
+  --color-brand-on-accent: var(--brand-on-accent);
+  --color-brand-cocoa: var(--brand-cocoa);
+  --color-brand-on-cocoa: var(--brand-on-cocoa);
+}
+
+@layer base {
+  * {
+    border-color: var(--brand-line);
+  }
+  body {
+    background: var(--brand-bg);
+    color: var(--brand-fg);
+  }
+  html {
+    font-family: var(--font-nunito);
+    /* The header is fixed, so anchored sections stop short of it. */
+    scroll-padding-top: 4.5rem;
+  }
+}
+
+::selection {
+  background: var(--brand-accent-3);
+  color: var(--brand-cocoa);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Fraunces at display sizes: the soft, slightly wonky cut, which is most of the room's warmth. */
+@utility text-display {
+  font-family: var(--font-fraunces);
+  font-weight: 500;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+@utility text-label {
+  font-family: var(--font-geist-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility text-hand {
+  font-family: var(--font-caveat);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--brand-accent);
+}
+
+/* ---------- The light in the room ---------- */
+
+/*
+ * What shows while the shader loads, and wherever WebGL2 is unavailable. It gets its own layer:
+ * a fixed background painted into the page makes the browser repaint the whole document on
+ * every frame of a scroll, instead of just sliding the page over it.
+ */
+.room-light {
+  will-change: transform;
+  background:
+    radial-gradient(ellipse 55% 45% at 12% 8%, color-mix(in srgb, var(--brand-glow) 35%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 88% 55%, color-mix(in srgb, var(--brand-tint) 60%, transparent), transparent 70%),
+    var(--brand-bg);
+}
+
+/* ---------- The running head's rule, drawn as it scrolls in ---------- */
+
+@keyframes rule-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .section-rule {
+    transform-origin: left;
+    animation: rule-grow linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+}
+
+/* ---------- The desk ---------- */
+
+/*
+ * Inside the desk, nothing loops on a property the browser would lift onto a layer of its own
+ * (transform, opacity): the camera scales the desk, those layers are rebuilt as it does, and for a
+ * frame they go missing, which shows as parts of the desk blinking out. The steam and the stars
+ * keep moving on paint-only properties, and the curtains, plants, cat and clouds hold still.
+ */
+.desk-screen *,
+.room-wake * {
+  animation: none;
+}
+
+/* The cat's z's rise in turn: each fades in small, grows and fades out, by painting alone. */
+@keyframes snooze-painted {
+  0% {
+    fill-opacity: 0;
+    font-size: calc(var(--z-size) * 0.55);
+  }
+  25% {
+    fill-opacity: 1;
+  }
+  65% {
+    fill-opacity: 1;
+    font-size: var(--z-size);
+  }
+  100% {
+    fill-opacity: 0;
+    font-size: calc(var(--z-size) * 1.15);
+  }
+}
+
+.desk-z {
+  font-size: var(--z-size);
+  animation: snooze-painted 3.6s ease-in-out infinite both;
+}
+
+.desk-z:nth-of-type(2) {
+  animation-delay: 0.6s;
+}
+
+.desk-z:nth-of-type(3) {
+  animation-delay: 1.2s;
+}
+
+/* ----- Daylight, for the light theme ----- */
+
+.desk {
+  --beam: #ffe39a;
+}
+
+.desk[data-phase="dawn"] {
+  --beam: #ffd9b0;
+}
+
+.desk[data-phase="dusk"] {
+  --beam: #ffbb85;
+}
+
+/* No sun at night, and none once the lamp is on. */
+.desk[data-phase="night"] .desk-daylight,
+.dark .desk-daylight {
+  display: none;
+}
+
+@keyframes mote-drift {
+  0% {
+    cy: var(--y);
+    fill-opacity: 0;
+  }
+  30% {
+    fill-opacity: 0.9;
+  }
+  100% {
+    cy: calc(var(--y) - 70px);
+    fill-opacity: 0;
+  }
+}
+
+.desk-mote {
+  fill: #fffaf0;
+  animation: mote-drift calc(6s + var(--i) * 0.7s) ease-in-out infinite both;
+  animation-delay: calc(var(--i) * -1.3s);
+}
+
+@keyframes steam-drawn {
+  0% {
+    stroke-dashoffset: 1;
+    stroke-opacity: 0;
+  }
+  35% {
+    stroke-opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    stroke-opacity: 0;
+  }
+}
+
+.desk .desk-steam {
+  stroke-dasharray: 1;
+  animation: steam-drawn 3.6s ease-out infinite;
+}
+
+.desk .desk-steam:nth-child(2) {
+  animation-delay: 1.2s;
+}
+
+.desk .desk-steam:nth-child(3) {
+  animation-delay: 2.4s;
+}
+
+@keyframes twinkle-painted {
+  from {
+    fill-opacity: 0.25;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+
+.desk .sky-star {
+  animation: twinkle-painted 2.4s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.7s);
+}
+
+/* Warm wood, mixed from the accent so it shifts with the room's light. */
+.wood {
+  fill: color-mix(in srgb, var(--brand-accent) 38%, var(--brand-dim));
+}
+
+.cork {
+  fill: #c89a68;
+}
+
+.dark .cork {
+  fill: #7c5a3e;
+}
+
+.wood-dark {
+  fill: color-mix(in srgb, var(--brand-accent) 30%, var(--brand-muted));
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scaleX(0.9);
+  }
+  25% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-34px) scaleX(1.15);
+  }
+}
+
+.desk-steam {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: steam 3.6s ease-out infinite;
+}
+
+.desk-steam:nth-child(2) {
+  animation-delay: 1.2s;
+}
+
+.desk-steam:nth-child(3) {
+  animation-delay: 2.4s;
+}
+
+/* The terminal's cursor. */
+.desk-caret {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sky-star {
+  animation: twinkle 2.4s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.7s);
+}
+
+/* The window shows the visitor's own sky; it follows their clock, not the site's theme. */
+.sky {
+  --sky-top: #9ccbe8;
+  --sky-bottom: #e4f1f4;
+  --sky-body: #ffe08a;
+}
+
+.sky[data-phase="dawn"] {
+  --sky-top: #f2b48f;
+  --sky-bottom: #fde3c4;
+  --sky-body: #fff1c9;
+}
+
+.sky[data-phase="dusk"] {
+  --sky-top: #6a4a7a;
+  --sky-bottom: #f39a6b;
+  --sky-body: #ffcf8a;
+}
+
+.sky[data-phase="night"] {
+  --sky-top: #141a33;
+  --sky-bottom: #3a3462;
+  --sky-body: #f4ead2;
+}
+
+.sky-top {
+  stop-color: var(--sky-top);
+  transition: stop-color 1.2s ease;
+}
+
+.sky-bottom {
+  stop-color: var(--sky-bottom);
+  transition: stop-color 1.2s ease;
+}
+
+.sky-body {
+  fill: var(--sky-body);
+}
+
+.sky-stars,
+.sky-moon-shade {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.sky[data-phase="night"] .sky-stars,
+.sky[data-phase="night"] .sky-moon-shade {
+  opacity: 1;
+}
+
+.sky[data-phase="dusk"] .sky-stars {
+  opacity: 0.45;
+}
+
+.sky[data-phase="night"] .sky-cloud {
+  opacity: 0.18;
+}
+
+/* The lamp only gives light once the sun is down, which on this site means dark mode. */
+.desk-lamp-light {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.dark .desk-lamp-light {
+  opacity: 1;
+}
+
+.desk-screen-glow {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.dark .desk-screen-glow {
+  opacity: 0.55;
+}
+
+/* A pull of the chain: it drops, then springs back up past where it started. */
+@keyframes chain-pull {
+  0% {
+    translate: 0 0;
+  }
+  30% {
+    translate: 0 14px;
+  }
+  65% {
+    translate: 0 -4px;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+.desk-chain {
+  transition: translate 0.2s ease;
+}
+
+.desk:has(.desk-chain-button:is(:hover, :focus-visible)) .desk-chain {
+  translate: 0 3px;
+}
+
+.desk-chain[data-pulled] {
+  animation: chain-pull 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- Pinned scenes ---------- */
+
+/*
+ * A scene is a tall section whose stage sticks to the viewport while it passes; the
+ * script writes the scene's progress to `--p` (0 to 1) and any named stretches of it,
+ * and everything below reads those.
+ */
+.scene {
+  --p: 0;
+  position: relative;
+  /* clip, not hidden: hidden would make the scene a scroll container and break the sticky stage inside it. */
+  overflow-x: clip;
+}
+
+/*
+ * A hand-over: the scene slides up under the last screen of the one before and stays hidden
+ * until the moment that one would scroll away, then shows on top of it. The outgoing stage
+ * never visibly scrolls off, so a frame shared by both scenes is seen once, in one place.
+ */
+.scene--handoff {
+  z-index: 1;
+  margin-top: -100svh;
+}
+
+.scene--handoff[data-ahead] > .scene-stage,
+.scene[data-handed-over] > .scene-stage {
+  visibility: hidden;
+}
+
+/* Nothing loops where nobody can see it: a scene off screen, or an app window that is closed. */
+.scene[data-idle] *,
+.os-window:not([data-live]) * {
+  animation-play-state: paused !important;
+}
+
+.scene-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* The nudge to scroll fades as soon as the camera starts to lean in toward the laptop. */
+.hero-scene {
+  --copy: 0;
+}
+
+.hero-copy {
+  opacity: calc(1 - var(--copy));
+  transform: translateY(calc(var(--copy) * 1.5rem));
+}
+
+.hero-desk {
+  transform-origin: var(--ox, 50%) var(--oy, 60%);
+  transform: translate(calc(var(--dx, 0px) * var(--shift, 0)), calc(var(--dy, 0px) * var(--shift, 0))) scale(var(--scale, 1));
+}
+
+/* ----- Zen: the desktop inside the laptop ----- */
+
+/*
+ * The script writes the scene's stretches: `--boot` while the boot screen clears, `--note`
+ * for the welcome note, `--clear` while the desktop clears to its wallpaper, and on
+ * each window `--sx`/`--sy`/`--o` (its zoom out of, and back into, its dock icon) and
+ * `--show` (its words reading in).
+ */
+.zen-scene {
+  --boot: 1;
+  --note: 0;
+  --clear: 0;
+}
+
+/* The menu bar, dock and shortcuts clear away once the last app is put back, leaving the wallpaper. */
+.os-chrome {
+  opacity: calc(1 - var(--clear));
+}
+
+/* The start-up terminal. Both halves share one frame, so the text sits in the same place across the hand-over. */
+.boot-frame {
+  width: min(88vw, 30rem);
+}
+
+.boot-command {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: calc(var(--typed, 1) * var(--chars) * 1ch);
+}
+
+.boot-line {
+  opacity: var(--line);
+  transform: translateY(calc((1 - var(--line)) * 0.4rem));
+}
+
+/* The desktop comes up through the terminal as it dissolves, the text drifting up and away. */
+.os-boot {
+  opacity: var(--boot);
+  pointer-events: none;
+}
+
+.os-boot .boot-frame {
+  transform: translateY(calc((1 - var(--boot)) * -2rem));
+  filter: blur(calc((1 - var(--boot)) * 6px));
+}
+
+/* The wallpaper: a green valley on a soft morning by day, a deep green night by lamplight. */
+.os-wallpaper {
+  --sky-top: #a9d3e0;
+  --sky-bottom: #f6ead2;
+  --sun: #fff6dc;
+  --hill-far: #9cc3b0;
+  --hill-mid: #6d9f72;
+  --hill-near: #4f8352;
+  --meadow: #3f7044;
+  --mist: rgb(255 252 244 / 0.45);
+  --cabin: #6a4430;
+  --roof: #3a2a21;
+  --window: #ffd79a;
+  --tree: #2f5e3a;
+  --smoke: rgb(255 250 240 / 0.8);
+}
+
+.dark .os-wallpaper {
+  --sky-top: #0f1a2b;
+  --sky-bottom: #24384a;
+  --sun: #f4ead2;
+  --hill-far: #2c4448;
+  --hill-mid: #213830;
+  --hill-near: #192c22;
+  --meadow: #13231a;
+  --mist: rgb(180 210 220 / 0.08);
+  --cabin: #3a2a24;
+  --roof: #120f14;
+  --window: #ffc46e;
+  --tree: #0f1d14;
+  --smoke: rgb(255 240 220 / 0.25);
+}
+
+.os-mist {
+  fill: var(--mist);
+}
+
+.os-meadow {
+  fill: var(--meadow);
+}
+
+.os-sky-top {
+  stop-color: var(--sky-top);
+}
+
+.os-sky-bottom {
+  stop-color: var(--sky-bottom);
+}
+
+.os-sun {
+  fill: var(--sun);
+}
+
+.os-stars {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.dark .os-stars {
+  opacity: 1;
+}
+
+.os-cabin-glow {
+  opacity: 0.2;
+}
+
+.dark .os-cabin-glow {
+  opacity: 1;
+}
+
+.os-cabin {
+  fill: var(--cabin);
+}
+
+.os-roof {
+  fill: var(--roof);
+  stroke: var(--roof);
+}
+
+.os-cabin-window {
+  fill: var(--window);
+}
+
+.os-tree path {
+  fill: var(--tree);
+}
+
+.os-smoke {
+  stroke: var(--smoke);
+}
+
+/* Each layer of hills drifts by its own amount as the chapter scrolls; the nearest moves most. */
+.os-hill--far {
+  fill: var(--hill-far);
+  transform: translateX(calc(var(--p) * -40px));
+}
+
+.os-hill--mid {
+  fill: var(--hill-mid);
+  transform: translateX(calc(var(--p) * -80px));
+}
+
+.os-hill--near {
+  fill: var(--hill-near);
+}
+
+.os-hill--near-group {
+  transform: translateX(calc(var(--p) * -140px));
+}
+
+.os-menubar {
+  background: color-mix(in srgb, var(--brand-bg) 55%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-line) 60%, transparent);
+}
+
+.os-shortcut > span:last-child {
+  background: color-mix(in srgb, var(--brand-bg) 60%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+/* The welcome note: a plain text file, open on the desktop when it first appears. */
+.os-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 36rem);
+  translate: -50% -50%;
+  overflow: hidden;
+  border: 1px solid var(--brand-line);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--brand-surface) 94%, transparent);
+  box-shadow: 0 40px 90px -40px color-mix(in srgb, var(--brand-cocoa) 60%, transparent);
+  opacity: var(--note);
+  transform: translateY(calc((1 - var(--note)) * 1.5rem)) scale(calc(0.92 + var(--note) * 0.08));
+}
+
+/*
+ * An app window. Its transform origin is its own dock icon, so it opens out of it and goes back in.
+ * It is paper like the welcome note: what is written "on cocoa" inside it takes the theme's ink, and
+ * the project's pastel hue is deepened by day so it still reads on the light page.
+ */
+.os-window {
+  --brand-on-cocoa: var(--brand-fg);
+  --hue: color-mix(in srgb, var(--hue-base) 60%, var(--brand-fg));
+  position: absolute;
+  top: calc(50% - 0.75rem);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: min(94vw, 64rem);
+  height: min(calc(100svh - 12rem), 34rem);
+  translate: -50% -50%;
+  overflow: hidden;
+  border: 1px solid var(--brand-line);
+  border-radius: 1.25rem;
+  color: var(--brand-fg);
+  background: var(--brand-surface);
+  box-shadow: 0 50px 100px -40px color-mix(in srgb, var(--brand-cocoa) 60%, transparent);
+  visibility: hidden;
+  transform-origin: var(--ox, 50%) var(--oy, 120%);
+  transform: scale(var(--sx, 0.04), var(--sy, 0.04));
+  opacity: var(--o, 0);
+}
+
+.os-window[data-live] {
+  visibility: visible;
+}
+
+/* A phone on its side has room for little more than the window between the menu bar and a smaller dock. */
+@media (orientation: landscape) and (max-height: 30rem) {
+  .os-window {
+    top: calc(50% + 0.2rem);
+    height: calc(100svh - 9.5rem);
+  }
+}
+
+.dark .os-window {
+  --hue: var(--hue-base);
+}
+
+.os-window__demo {
+  background: radial-gradient(ellipse 80% 70% at 30% 40%, color-mix(in srgb, var(--hue) 18%, transparent), transparent 75%);
+}
+
+/* The dock: an icon per app, the open one bouncing and marked with a dot. */
+.os-dock {
+  border: 1px solid color-mix(in srgb, var(--brand-line) 70%, transparent);
+  background: color-mix(in srgb, var(--brand-bg) 55%, transparent);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px -20px color-mix(in srgb, var(--brand-cocoa) 50%, transparent);
+}
+
+.os-dock-icon {
+  position: relative;
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border-radius: 0.75rem;
+  color: #241812;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--hue) 70%, white), var(--hue));
+  box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--hue) 80%, black);
+  cursor: pointer;
+  transition: scale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (min-width: 40rem) {
+  .os-dock-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.9rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 30rem) {
+  .os-dock-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.7rem;
+  }
+}
+
+.os-dock-icon:hover,
+.os-dock-icon:focus-visible {
+  scale: 1.15;
+}
+
+@keyframes dock-bounce {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: 0 -16px;
+  }
+  50% {
+    translate: 0 0;
+  }
+  70% {
+    translate: 0 -6px;
+  }
+}
+
+.os-dock-icon[aria-current] {
+  animation: dock-bounce 0.9s cubic-bezier(0.3, 0, 0.3, 1);
+}
+
+.os-dock-icon[aria-current]::after {
+  content: "";
+  position: absolute;
+  bottom: -0.45rem;
+  left: 50%;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--brand-fg);
+  translate: -50% 0;
+}
+
+.os-dock-icon__name {
+  position: absolute;
+  bottom: calc(100% + 0.7rem);
+  left: 50%;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  color: var(--brand-on-cocoa);
+  background: var(--brand-cocoa);
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+  translate: -50% 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.os-dock-icon:hover .os-dock-icon__name,
+.os-dock-icon:focus-visible .os-dock-icon__name {
+  opacity: 1;
+}
+
+/* The name rises word by word out of its own mask; the rest follows in order behind it. */
+.zen-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  vertical-align: top;
+}
+
+.zen-word {
+  display: inline-block;
+  transform: translateY(calc((1 - clamp(0, var(--show) * 2.2 - var(--k) * 0.25, 1)) * 110%));
+}
+
+.zen-reveal {
+  --shown: clamp(0, var(--show) * 2.4 - var(--k) * 0.22, 1);
+  opacity: var(--shown);
+  transform: translateY(calc((1 - var(--shown)) * 1rem));
+}
+
+/* ----- The project demos ----- */
+
+/* An odometer digit: eleven positions, the last a repeat of the first, so the loop is seamless. */
+@keyframes demo-roll {
+  to {
+    translate: 0 -10em;
+  }
+}
+
+.demo-roll {
+  animation: demo-roll var(--d) steps(11, jump-none) infinite;
+}
+
+@keyframes demo-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--hue) 40%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.demo-pulse {
+  animation: demo-pulse 2.2s ease-out infinite;
+}
+
+/* The Content Lab: REC blinks, the clapper snaps shut, the sticker slaps on, the film rolls. */
+@keyframes demo-blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+.demo-blink {
+  animation: demo-blink 1s steps(1) infinite;
+}
+
+@keyframes demo-clap {
+  0%,
+  55% {
+    rotate: -24deg;
+  }
+  62% {
+    rotate: 0deg;
+  }
+  66% {
+    rotate: -5deg;
+  }
+  70%,
+  88% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: -24deg;
+  }
+}
+
+.demo-clap {
+  transform-box: fill-box;
+  transform-origin: left bottom;
+  animation: demo-clap 3s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+
+@keyframes demo-sticker {
+  0%,
+  60% {
+    opacity: 0;
+    scale: 1.8;
+  }
+  68% {
+    opacity: 1;
+    scale: 0.92;
+  }
+  74%,
+  94% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+.demo-sticker {
+  animation: demo-sticker 3s ease-out infinite;
+}
+
+@keyframes demo-strip {
+  to {
+    translate: -50% 0;
+  }
+}
+
+.demo-strip {
+  animation: demo-strip 14s linear infinite;
+}
+
+/* Zenalytics: confetti off the tallest bar as it lands, and a theme toggle that cannot decide. */
+@keyframes demo-confetti {
+  0%,
+  18% {
+    opacity: 0;
+    translate: -50% 0;
+    rotate: 0deg;
+  }
+  22% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+    translate: calc(-50% + var(--x)) var(--y);
+    rotate: 200deg;
+  }
+  55%,
+  100% {
+    opacity: 0;
+    translate: calc(-50% + var(--x)) calc(var(--y) + 18px);
+    rotate: 320deg;
+  }
+}
+
+.demo-confetti {
+  opacity: 0;
+  animation: demo-confetti 6s ease-out infinite;
+  animation-delay: calc(var(--line) * 0.25s);
+}
+
+@keyframes demo-toggle {
+  0%,
+  40% {
+    translate: 0 0;
+  }
+  50%,
+  90% {
+    translate: 1.5rem 0;
+  }
+}
+
+.demo-toggle {
+  animation: demo-toggle 4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* Zen Marine Charters: the boat crosses the bay, the gulls flap, and the gold button begs. */
+@keyframes demo-step {
+  0%,
+  15% {
+    width: 0;
+  }
+  40%,
+  55% {
+    width: 45%;
+  }
+  80%,
+  100% {
+    width: calc(100% - 1.5rem);
+  }
+}
+
+.demo-step {
+  animation: demo-step 5s ease-in-out infinite;
+}
+
+@keyframes demo-bob {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: -3deg;
+  }
+  50% {
+    translate: 0 3px;
+    rotate: 3deg;
+  }
+}
+
+.demo-bob {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: demo-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes demo-sail {
+  from {
+    translate: -30% 0;
+  }
+  to {
+    translate: 105% 0;
+  }
+}
+
+.demo-sail {
+  animation: demo-sail 16s linear infinite;
+}
+
+@keyframes demo-waves {
+  to {
+    translate: -50% 0;
+  }
+}
+
+.demo-waves {
+  animation: demo-waves 6s linear infinite;
+}
+
+.demo-waves--slow {
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+@keyframes demo-flap {
+  50% {
+    scale: 1 0.35;
+  }
+}
+
+.demo-flap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: demo-flap 0.7s ease-in-out infinite;
+}
+
+@keyframes demo-glide {
+  50% {
+    translate: 1.25rem -0.4rem;
+  }
+}
+
+.demo-glide {
+  animation: demo-glide 5s ease-in-out infinite;
+}
+
+.demo-glide--late {
+  animation-delay: -2s;
+}
+
+@keyframes demo-sun {
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--brand-accent-2) 20%, transparent);
+  }
+}
+
+.demo-sun {
+  animation: demo-sun 3s ease-in-out infinite;
+}
+
+@keyframes demo-wiggle {
+  0%,
+  70%,
+  100% {
+    rotate: 0deg;
+  }
+  74%,
+  82%,
+  90% {
+    rotate: -8deg;
+  }
+  78%,
+  86%,
+  94% {
+    rotate: 8deg;
+  }
+}
+
+.demo-wiggle {
+  animation: demo-wiggle 3s ease-in-out infinite;
+}
+
+/* Zen Intent: the beam sweeps round, and each lead pings as it passes. */
+@keyframes demo-sweep {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.demo-sweep {
+  animation: demo-sweep 4s linear infinite;
+}
+
+@keyframes demo-blip {
+  0% {
+    opacity: 1;
+    scale: 1.5;
+  }
+  50%,
+  100% {
+    opacity: 0.3;
+    scale: 1;
+  }
+}
+
+.demo-blip {
+  animation: demo-blip 4s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes demo-ping {
+  0% {
+    opacity: 0.9;
+    scale: 1;
+  }
+  30%,
+  100% {
+    opacity: 0;
+    scale: 3.5;
+  }
+}
+
+.demo-ping {
+  opacity: 0;
+  animation: demo-ping 4s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes demo-card {
+  0% {
+    opacity: 0;
+    translate: 1.5rem 0;
+  }
+  12%,
+  85% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+.demo-card {
+  animation: demo-card 6s cubic-bezier(0.34, 1.4, 0.64, 1) infinite both;
+  animation-delay: calc(var(--i) * 0.6s);
+}
+
+/* ViralTube Exploder: rays spin, the face gasps, and every click of Generate is a new title. */
+@keyframes demo-rays {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.demo-rays {
+  animation: demo-rays 24s linear infinite;
+}
+
+@keyframes demo-titles {
+  0%,
+  28% {
+    translate: 0 0;
+  }
+  33%,
+  61% {
+    translate: 0 -2em;
+  }
+  66%,
+  94% {
+    translate: 0 -4em;
+  }
+  100% {
+    translate: 0 -6em;
+  }
+}
+
+.demo-titles {
+  animation: demo-titles 9s cubic-bezier(0.7, 0, 0.3, 1.3) infinite;
+}
+
+@keyframes demo-face {
+  0%,
+  100% {
+    rotate: -4deg;
+  }
+  50% {
+    rotate: 4deg;
+  }
+}
+
+.demo-face {
+  transform-origin: 50% 100%;
+  animation: demo-face 1.6s ease-in-out infinite;
+}
+
+@keyframes demo-look {
+  0%,
+  40% {
+    translate: -2px 0;
+  }
+  50%,
+  90% {
+    translate: 2px 1px;
+  }
+}
+
+.demo-look {
+  animation: demo-look 3s steps(1) infinite;
+}
+
+@keyframes demo-gasp {
+  50% {
+    scale: 1.25 1.35;
+  }
+}
+
+.demo-gasp {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: demo-gasp 1.5s ease-in-out infinite;
+}
+
+@keyframes demo-arrow {
+  50% {
+    translate: 6px 2px;
+  }
+}
+
+.demo-arrow {
+  animation: demo-arrow 0.8s ease-in-out infinite;
+}
+
+@keyframes demo-cursor {
+  0% {
+    opacity: 0;
+    translate: -3.5rem -1.5rem;
+  }
+  15% {
+    opacity: 1;
+  }
+  45% {
+    translate: 0 0;
+    scale: 1;
+  }
+  50% {
+    scale: 0.8;
+  }
+  56%,
+  85% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+/* Offset so each click lands just as the thumbnail's title swaps. */
+.demo-cursor {
+  animation: demo-cursor 3s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+@keyframes demo-press {
+  0%,
+  44%,
+  58%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 0.9;
+  }
+}
+
+.demo-press {
+  animation: demo-press 3s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+/* Zenith: the day fills in, the coffee steams, and Slack pipes up one toast at a time. */
+@keyframes demo-ring {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  60%,
+  100% {
+    stroke-dashoffset: 0.3;
+  }
+}
+
+.demo-ring {
+  animation: demo-ring 5s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes demo-presence {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.demo-presence {
+  animation: demo-presence 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.4s);
+}
+
+@keyframes demo-steam {
+  0% {
+    opacity: 0;
+    translate: 0 0.25rem;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 2px -0.6rem;
+  }
+}
+
+.demo-steam {
+  animation: demo-steam 2s ease-out infinite;
+}
+
+.demo-steam--late {
+  animation-delay: -1s;
+}
+
+@keyframes demo-toast {
+  0% {
+    opacity: 0;
+    translate: 0 0.75rem;
+    scale: 0.95;
+  }
+  4%,
+  29% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  33%,
+  100% {
+    opacity: 0;
+    translate: 0 -0.5rem;
+    scale: 1;
+  }
+}
+
+.demo-toast {
+  opacity: 0;
+  animation: demo-toast 9s ease-out infinite;
+  animation-delay: calc(var(--i) * 3s);
+}
+
+/* The chart's bars rise one after another, rest a while, and settle back down. */
+@keyframes bar-grow {
+  0% {
+    transform: scaleY(0.15);
+  }
+  20%,
+  80% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.15);
+  }
+}
+
+.bar-grow {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: bar-grow 6s cubic-bezier(0.34, 1.3, 0.64, 1) infinite;
+  animation-delay: calc(var(--line) * 0.25s);
+}
+
+/* ---------- The room: the camera's visits to the cork board and the shelf ---------- */
+
+.room-night {
+  opacity: var(--night, 0);
+  pointer-events: none;
+}
+
+.room-wake {
+  opacity: var(--wake);
+  pointer-events: none;
+}
+
+/*
+ * The script frames the desk itself and writes `--wake` (the wallpaper it opens on, fading as the
+ * camera pulls back), `--board` and `--pantry` (each close-up fading in once the camera has
+ * arrived), `--string` (how far the red string has run), `--stock` (how many jars are on the
+ * shelves) and `--night` (the evening coming in through the window).
+ */
+.room-scene {
+  --wake: 1;
+  --board: 0;
+  --string: 0;
+  --pantry: 0;
+  --stock: 0;
+}
+
+.room-close-up {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.room-close-up--board {
+  opacity: var(--board);
+  background:
+    radial-gradient(rgb(90 58 30 / 0.2) 1px, transparent 1.6px) 0 0 / 9px 9px,
+    radial-gradient(rgb(255 240 210 / 0.25) 1px, transparent 1.6px) 4px 5px / 13px 13px,
+    #c89a68;
+  box-shadow: inset 0 0 0 14px #7a5236, inset 0 0 60px 14px rgb(60 35 15 / 0.35);
+}
+
+.dark .room-close-up--board {
+  background:
+    radial-gradient(rgb(20 10 4 / 0.3) 1px, transparent 1.6px) 0 0 / 9px 9px,
+    #7c5a3e;
+  box-shadow: inset 0 0 0 14px #3f2a1c, inset 0 0 80px 14px rgb(0 0 0 / 0.45);
+}
+
+.room-close-up--pantry {
+  opacity: var(--pantry);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, color-mix(in srgb, var(--brand-line) 45%, transparent) 46px 48px),
+    var(--brand-bg);
+}
+
+.room-scene[data-board] .room-close-up--board,
+.room-scene[data-pantry] .room-close-up--pantry {
+  visibility: visible;
+}
+
+/* ----- The cork board ----- */
+
+.board-pin {
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  z-index: 2;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ef7466, #b3352b 70%);
+  box-shadow: 0 3px 4px rgb(0 0 0 / 0.35);
+  translate: -50% 0;
+}
+
+.board-title {
+  max-width: min(90vw, 40rem);
+  padding: 0.85rem 1.3rem;
+  background: #fffaf2;
+  box-shadow: 0 12px 24px -12px rgb(40 20 10 / 0.5);
+}
+
+.board-string path {
+  fill: none;
+  stroke: #c4473b;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--string));
+}
+
+/* Three columns across the board, each dropped a little lower than the last, as if pinned by hand. */
+.board-stops {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.board-stop {
+  --pop: clamp(0, (var(--string) - var(--i) * 0.3) * 6, 1);
+  --drop: calc(var(--i) * 2.5svh);
+  opacity: var(--pop);
+  transform: translateY(var(--drop)) rotate(var(--tilt)) scale(calc(0.7 + var(--pop) * 0.3));
+  transform-origin: 50% 0;
+}
+
+.board-stop:nth-child(2) {
+  --drop: 2svh;
+}
+
+.board-stop:nth-child(3) {
+  --drop: 1svh;
+}
+
+.board-polaroid {
+  padding: 0.7rem 0.7rem 0.5rem;
+  background: #fffaf2;
+  box-shadow: 0 20px 36px -16px rgb(40 20 10 / 0.6);
+}
+
+/* The photo keeps the polaroid's full width and gives up height on shorter screens, rather than narrowing. */
+.board-photo {
+  height: min(24svh, 17vw);
+}
+
+/* The note overlaps the bottom of its photo, turned the other way, the way notes get tucked under a pin. */
+.board-note {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 1.5rem);
+  margin: -0.5rem 0 0 1.5rem;
+  padding: 1rem 1.2rem 1.1rem;
+  background:
+    repeating-linear-gradient(transparent 0 27px, rgb(201 178 157 / 0.45) 27px 28px),
+    #fffaf2;
+  box-shadow: 0 20px 36px -16px rgb(40 20 10 / 0.6);
+  rotate: calc(var(--tilt) * -1.2);
+}
+
+/* On short screens the photos give up height first, so the notes stay on the board. */
+@media (min-width: 48rem) and (max-height: 50rem) {
+  .board-photo {
+    height: 16svh;
+  }
+  .board-note {
+    padding: 0.75rem 1rem 0.85rem;
+  }
+  .board-note p:nth-of-type(2) {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+}
+
+/* On a phone on its side, the stories give way to the role and the highlight, all in smaller hands. */
+@media (orientation: landscape) and (max-height: 30rem) {
+  .board-photo {
+    height: 14svh;
+  }
+  .board-polaroid figcaption {
+    margin-top: 0.15rem;
+    font-size: 1.15rem;
+  }
+  .board-note {
+    padding: 0.5rem 0.8rem 0.6rem;
+  }
+  .board-note h3 {
+    font-size: 1.15rem;
+  }
+  .board-note p:nth-of-type(2) {
+    display: none;
+  }
+  .board-note p:nth-of-type(3) {
+    margin-top: 0.25rem;
+    font-size: 1rem;
+  }
+}
+
+/* On a phone there is room for one stop at a time: the one the string has just reached fills the board. */
+@media (max-width: 47.99rem) {
+  .board-string {
+    display: none;
+  }
+  .board-stops {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+  }
+  .board-stop {
+    grid-area: 1 / 1;
+    --drop: 0svh;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .board-stop:nth-child(2),
+  .board-stop:nth-child(3) {
+    --drop: 0svh;
+  }
+  .room-scene[data-stop="0"] .board-stop:nth-child(1),
+  .room-scene[data-stop="1"] .board-stop:nth-child(2),
+  .room-scene[data-stop="2"] .board-stop:nth-child(3) {
+    opacity: var(--pop);
+  }
+  .board-photo {
+    height: min(28svh, 60vw);
+  }
+}
+
+@media (max-width: 47.99rem) and (max-height: 44rem) {
+  .board-photo {
+    height: 22svh;
+  }
+}
+
+/* ----- The pantry's jars: a wiggle and a lifted lid on hover ----- */
+
+@keyframes jar-wiggle {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  25% {
+    rotate: -6deg;
+  }
+  60% {
+    rotate: 4deg;
+  }
+}
+
+.jar {
+  transform-origin: bottom center;
+}
+
+.jar:hover,
+.jar:focus-visible {
+  animation: jar-wiggle 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.jar__lid {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: translate 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), rotate 0.35s ease;
+}
+
+.jar:hover .jar__lid,
+.jar:focus-visible .jar__lid {
+  translate: 0 -7px;
+  rotate: -8deg;
+}
+
+.jar__label {
+  transition: rotate 0.35s ease;
+}
+
+.shelf-plank {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--brand-accent) 35%, var(--brand-dim)), var(--brand-dim));
+  box-shadow: 0 14px 22px -12px color-mix(in srgb, var(--brand-cocoa) 45%, transparent);
+}
+
+/* ----- The pantry: jars set down on the shelves one at a time ----- */
+
+.pantry .jar {
+  --set: clamp(0, var(--stock) - var(--j), 1);
+  opacity: var(--set);
+  transform: translateY(calc((1 - var(--set)) * -4rem));
+}
+
+/* ---------- About: the laptop's login screen ---------- */
+
+/*
+ * The script writes the scene's stretches: `--wake` as the lock screen wakes to the account,
+ * `--read` as the about text reads itself in, `--login` as the page folds to the login, `--pw` as the
+ * password types, `--welcome`, then `--term` and `--typed` for the terminal it logs in to.
+ */
+.about-scene {
+  --wake: 0;
+  --read: 0;
+  --login: 0;
+  --pw: 0;
+  --welcome: 0;
+  --term: 0;
+  --typed: 0;
+}
+
+/*
+ * The full-screen lock screen: the laptop screen's shape (190 × 122 in the desk drawing), centred
+ * and covering the stage with the same 4% overshoot the hero's zoom uses, so it is exactly the
+ * laptop screen as the camera leaves it.
+ */
+.lock-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Per cent of the stage rather than vw, which counts the scrollbar and would miss the zoom's size. */
+  width: max(104%, calc(104svh * 190 / 122));
+  aspect-ratio: 190 / 122;
+  translate: -50% -50%;
+}
+
+/* A lock screen holds still: the wallpaper's twinkle and smoke would repaint the whole full-size layer every frame of the zoom. */
+.lock-backdrop * {
+  animation: none !important;
+}
+
+.lock-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* A tint rather than a blur: a blur would be recomputed through the camera's zoom and flicker. */
+  background: rgb(30 20 15 / 0.22);
+}
+
+.lock-clock {
+  z-index: 1;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 0.25);
+}
+
+/* Waking, the clock lifts away and the about page rises into its place. */
+.about-scene .lock-clock {
+  opacity: calc(1 - var(--wake) * 1.4);
+  transform: translateY(calc(var(--wake) * -6svh)) scale(calc(1 - var(--wake) * 0.2));
+}
+
+/* The about page, on a frosted sheet over the lock screen; it folds away when the login takes over. */
+.about-layout {
+  z-index: 2;
+  opacity: calc(var(--wake) - var(--login));
+  transform: translateY(calc((1 - var(--wake)) * 3rem)) scale(calc(1 - var(--login) * 0.08));
+  filter: blur(calc(var(--login) * 8px));
+  pointer-events: none;
+}
+
+.about-scene[data-page] .about-layout {
+  pointer-events: auto;
+}
+
+.about-panel {
+  border: 1px solid rgb(255 255 255 / 0.5);
+  border-radius: 2rem;
+  background: color-mix(in srgb, var(--brand-surface) 86%, transparent);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 70px -30px rgb(0 0 0 / 0.45);
+}
+
+.login-account {
+  z-index: 2;
+  opacity: var(--login);
+  transform: translateY(calc((1 - var(--login)) * 2rem)) scale(calc(0.94 + var(--login) * 0.06));
+  pointer-events: none;
+}
+
+.login-field {
+  border: 1px solid rgb(255 255 255 / 0.55);
+  background: color-mix(in srgb, var(--brand-surface) 70%, transparent);
+  backdrop-filter: blur(12px);
+  /* Gone before the welcome shows, so the two never overlap. */
+  opacity: calc(1 - clamp(0, var(--welcome) * 2, 1));
+}
+
+/* One dot per letter as the password types itself. */
+.login-dot {
+  opacity: clamp(0, var(--pw) * 8 - var(--i), 1);
+  scale: clamp(0, var(--pw) * 8 - var(--i), 1);
+}
+
+.login-welcome {
+  --shown: clamp(0, var(--welcome) * 2 - 1, 1);
+  opacity: var(--shown);
+  transform: translateY(calc((1 - var(--shown)) * 0.5rem));
+}
+
+.login-terminal {
+  opacity: var(--term);
+  pointer-events: none;
+}
+
+.about-word {
+  opacity: calc(0.16 + 0.84 * clamp(0, (var(--read) * 1.15 - var(--w)) * 14, 1));
+  transition: opacity 0.15s linear;
+}
+
+/*
+ * On a phone the three passages would be a wall of small text, so they become pages: stacked in
+ * one place, each rising in as the reading reaches it (`--from`) and lifting away as the next takes
+ * over (`--to`), with its words lighting up across the first part of its stretch.
+ */
+@media (max-width: 39.99rem) and (prefers-reduced-motion: no-preference) {
+  .about-passages {
+    display: grid;
+  }
+  .about-passages > p,
+  .about-dot {
+    --in: clamp(0, (var(--read) - var(--from)) * 40, 1);
+    --out: clamp(0, (var(--to) - var(--read)) * 40, 1);
+  }
+  .about-passages > p {
+    grid-area: 1 / 1;
+    align-self: center;
+    margin: 0;
+    opacity: calc(var(--in) * var(--out));
+    transform: translateY(calc((1 - var(--in)) * 1.25rem - (1 - var(--out)) * 1.25rem));
+  }
+  .about-passages .about-word {
+    opacity: calc(0.16 + 0.84 * clamp(0, ((var(--read) - var(--start)) / var(--span) * 1.15 - var(--wp)) * 14, 1));
+  }
+  .about-dots {
+    display: flex;
+  }
+  .about-dot {
+    width: calc(0.375rem + var(--in) * var(--out) * 1rem);
+    opacity: calc(0.3 + var(--in) * var(--out) * 0.7);
+  }
+}
+
+/* ---------- Contact: the evening sky beyond the window ---------- */
+
+/* The living headline: each line swaps in from below. */
+
+.living-line {
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.living-line > * {
+  display: block;
+}
+
+@keyframes living-swap {
+  from {
+    opacity: 0;
+    transform: translateY(35%) rotate(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.living-swap {
+  animation: living-swap 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* The invitation lights up as `--lamp` runs from 0 to 1. */
+.contact-scene {
+  --lamp: 0;
+}
+
+/* Either evening sky is dark enough for light text, so anything set on it takes this palette whatever the theme. */
+.night-palette {
+  --brand-fg: #f4e7d4;
+  --brand-muted: #c9b29d;
+  --brand-accent: #f0a65a;
+  --brand-accent-2: #e07a4b;
+  --brand-tint-fg: #ffc88a;
+  --brand-on-accent: #241812;
+  --brand-line: #4a382c;
+  color: var(--brand-fg);
+}
+
+/* The footer carries on in the colour of the hills the last scene ends on, rather than flashing back to day. */
+.site-footer {
+  background: var(--evening-hills);
+}
+
+/* By daylight the evening is a sunset: dusk violet overhead, warming to a glow at the horizon. */
+.contact-dusk {
+  background: linear-gradient(to bottom, #2f2547 0%, #5c3a5f 38%, #9a4f63 62%, #d06f5c 80%, #f0a060 92%);
+}
+
+/* By lamplight it is night. */
+.dark .contact-dusk {
+  background: linear-gradient(to bottom, #0f0c1d 0%, #1d1731 50%, #2e2340 100%);
+}
+
+/* The sun, sinking behind the hills: half of it is already down. */
+.contact-sun {
+  position: absolute;
+  bottom: 9svh;
+  /* In the gap between the paragraph and the buttons, so it never sits behind either. */
+  left: 52%;
+  width: min(14rem, 26vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe7b0 0%, #ffc67a 55%, #f6a25e 100%);
+  box-shadow: 0 0 120px 40px rgb(255 180 110 / 0.35);
+  translate: -50% 50%;
+}
+
+.contact-hills__far {
+  fill: #5a2f45;
+}
+
+.contact-hills__near {
+  fill: var(--evening-hills);
+}
+
+.dark .contact-hills__far {
+  fill: #1f1830;
+}
+
+.dark .contact-sun {
+  display: none;
+}
+
+/* Text on the sunset sits over warm colour: muted text is lightened and everything gets a soft shadow to stay legible. */
+:root:not(.dark) .contact-content {
+  --brand-muted: #f6e4d2;
+  text-shadow: 0 1px 14px rgb(40 18 30 / 0.45);
+}
+
+.contact-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff6dc;
+  display: none;
+}
+
+.dark .contact-star {
+  display: block;
+}
+
+.contact-moon {
+  position: absolute;
+  /* Under the header and above the section's running head, so it never sits on the text. */
+  top: calc(4.5rem + 3%);
+  right: 7%;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  box-shadow: inset -1.1rem 0.4rem 0 0 #f4ead2;
+  rotate: -20deg;
+  display: none;
+}
+
+.dark .contact-moon {
+  display: block;
+}
+
+.contact-lamp {
+  background: radial-gradient(ellipse 55% 50% at 30% 55%, rgb(255 183 102 / 0.22), transparent 70%);
+  opacity: var(--lamp);
+}
+
+.contact-content {
+  opacity: clamp(0, var(--lamp) * 1.6, 1);
+  transform: translateY(calc((1 - clamp(0, var(--lamp) * 1.6, 1)) * 1.5rem));
+}
+
+.contact-scribble {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--lamp));
+}
+
+/* Paper grain over the whole page; without it the light reads as a screen, not a room. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  /*
+   * A plain translucent layer on its own compositing layer, not a blend mode: blending a
+   * full-screen layer forces everything under it to be re-composited on every frame of a scroll,
+   * which is the kind of per-frame work that drops frames on a laptop GPU.
+   */
+  opacity: 0.05;
+  will-change: transform;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.dark body::after {
+  opacity: 0.03;
+}
+
+/* Native smoothing would ease every frame Lenis writes, so it is only the fallback for when Lenis is not running. */
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
+
+/* Without motion the scenes simply lie flat, finished, in reading order. */
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    height: auto !important;
+    --p: 1;
+  }
+  /* The nav's anchors are placed for the pinned heights; flat, each covers its section, or its close-up in the room. */
+  #about,
+  #contact {
+    top: 0 !important;
+    bottom: 0 !important;
+  }
+  #journey {
+    top: 0 !important;
+    height: 100svh !important;
+  }
+  #toolbox {
+    top: 100svh !important;
+    height: 100svh !important;
+  }
+  .scene--handoff {
+    margin-top: 0;
+  }
+  .scene-stage {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+  .hero-desk {
+    transform: none;
+  }
+  .zen-scene [data-desktop] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 7rem 1rem 8rem;
+  }
+  .os-note,
+  .os-window {
+    position: relative;
+    inset: auto;
+    margin: 0 auto;
+    translate: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    --show: 1;
+  }
+  .os-boot,
+  .room-wake,
+  .room-night {
+    display: none;
+  }
+  .room-scene {
+    --board: 1;
+    --string: 1;
+    --pantry: 1;
+    --stock: 99;
+  }
+  .room-world {
+    display: none;
+  }
+  .room-close-up {
+    position: relative;
+    min-height: 100svh;
+    visibility: visible;
+  }
+  .about-scene {
+    --wake: 1;
+    --read: 1;
+  }
+  .about-scene .lock-clock,
+  .login-account,
+  .login-terminal {
+    display: none;
+  }
+  .about-layout {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    pointer-events: auto;
+  }
+  .contact-scene {
+    --lamp: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .section-rule {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
