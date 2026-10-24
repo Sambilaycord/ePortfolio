@@ -28,6 +28,7 @@ The whole site is one cozy desk, told by scrolling. The camera zooms into the la
 | Share image | `next/og` (`ImageResponse`) |
 | Testing | [Playwright](https://playwright.dev/) end-to-end tests, ESLint, TypeScript |
 | Hosting | [Vercel](https://vercel.com/) |
+| Analytics | [Vercel Web Analytics](https://vercel.com/docs/analytics), optionally [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) |
 | Domain and DNS | [Cloudflare](https://www.cloudflare.com/), pointing `sambilaycord.site` at Vercel |
 
 ## Getting started
@@ -99,5 +100,7 @@ Most changes need no new code:
 Hosted on Vercel, building the `main` branch with the Next.js framework preset and default settings. The domain's DNS is on Cloudflare, with its records pointed at Vercel (DNS only, not proxied), so Vercel serves the site and its certificates directly. Every route is statically generated, so it can also run on any host that serves a Next.js build (`npm run build && npm run start`).
 
 Canonical links, the sitemap and the structured data use `https://www.sambilaycord.site`. Set `NEXT_PUBLIC_SITE_URL` to override it, for example on a preview deployment.
+
+Visits are counted by Vercel Web Analytics (enable it on the project's Analytics tab), which loads only in builds on Vercel. Cloudflare Web Analytics loads too when `NEXT_PUBLIC_CF_BEACON_TOKEN` is set to the site's beacon token; set it for Production only, so previews stay out of the stats.
 
 Every response carries security headers (frame blocking, `nosniff`, a strict referrer policy and a permissions policy), set in `next.config.ts`.
