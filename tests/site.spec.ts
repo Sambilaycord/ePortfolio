@@ -106,7 +106,37 @@ test("a missing page is a real 404 that leads home", async ({ page, isMobile }) 
   await expect(page).toHaveURL(/\/#journey$/);
 });
 
-test("the search and answer-engine files are served", async ({ request }) => {
+test("a shared link opens on its section, and a reload goes back to the hero", async ({ page }) => {
+  await page.goto("/#journey");
+  await expect(page).toHaveURL(/\/#journey$/);
+  await expect.poll(() => isAtMidline(page, "journey")).toBe(true);
+
+  await page.reload();
+  await expect(page).toHaveURL(/\/$/);
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+});
+
+test("a reload opens on the hero, wherever the page was scrolled", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight / 2));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(0);
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+});
+
+test("back and forward still step between the sections of a visit", async ({ page, isMobile }) => {
+  await page.goto("/");
+  await navigateTo(page, "Journey", isMobile);
+  await expect.poll(() => isAtMidline(page, "journey"), { timeout: 5_000 }).toBe(true);
+  await expect(page.locator("html")).not.toHaveClass(/lenis-stopped/);
+
+  await page.goBack();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  await page.goForward();
+  await expect.poll(() => isAtMidline(page, "journey")).toBe(true);
+});
+
+test("the search and answer-engine files are served",async ({ request }) => {
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain("Sitemap: https://www.sambilaycord.site/sitemap.xml");
   expect(robots).toContain("GPTBot");

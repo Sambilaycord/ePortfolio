@@ -11,6 +11,7 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import { keywords, siteDescription, siteTitle, siteUrl, structuredData } from "@/lib/seo";
 import { owner } from "@/lib/site";
 import { LOCK_VIEW_SCRIPT } from "@/lib/lock-view";
+import { START_AT_HERO_SCRIPT } from "@/lib/start-at-hero";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 import "./globals.css";
@@ -97,6 +98,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: LOCK_VIEW_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: START_AT_HERO_SCRIPT }} />
       </head>
       <body className="flex min-h-full flex-col">
         {/* Who made the site and what is on it, for search and answer engines (lib/seo.ts). */}

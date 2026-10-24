@@ -66,14 +66,21 @@ export function SmoothScroll() {
       lenis.scrollTo(event.detail, { duration: SECTION_GLIDE_SECONDS, easing: easeInOutCubic });
     }
 
+    // Scroll restoration is off (lib/start-at-hero.ts), so back and forward land on their step's section here.
+    function jumpToHistoryStep() {
+      lenis.scrollTo(window.location.hash || 0, { immediate: true, force: true });
+    }
+
     const announceScroll = () => window.dispatchEvent(new Event(SMOOTH_SCROLL_EVENT));
     lenis.on("scroll", announceScroll);
 
     window.addEventListener("click", glideToSamePageSection, { capture: true });
     window.addEventListener(SCROLL_TO_EVENT, glideToRequestedOffset);
+    window.addEventListener("popstate", jumpToHistoryStep);
     return () => {
       window.removeEventListener("click", glideToSamePageSection, { capture: true });
       window.removeEventListener(SCROLL_TO_EVENT, glideToRequestedOffset);
+      window.removeEventListener("popstate", jumpToHistoryStep);
       lenis.off("scroll", announceScroll);
       lenis.destroy();
     };
