@@ -497,7 +497,14 @@
  */
 .scene--handoff {
   z-index: 1;
+  /*
+   * The overlap is the largest the window can get (the phone's address bar collapsed), and fixed:
+   * the stages grow with the window, so a smaller overlap would let the outgoing stage start to
+   * scroll away before the hand-over, and one that tracked the bar would shift the page's length
+   * every time the bar moved.
+   */
   margin-top: -100svh;
+  margin-top: -100lvh;
 }
 
 .scene--handoff[data-ahead] > .scene-stage,
@@ -511,10 +518,16 @@
   animation-play-state: paused !important;
 }
 
+/*
+ * As tall as the window is right now: on a phone the address bar shrinks as the page scrolls and
+ * the window grows, and a stage the height of the smaller window would leave a strip of the page
+ * behind showing along the bottom.
+ */
 .scene-stage {
   position: sticky;
   top: 0;
   height: 100svh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -1741,8 +1754,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Per cent of the stage rather than vw, which counts the scrollbar and would miss the zoom's size. */
+  /* Per cent of the stage rather than vw, which counts the scrollbar and would miss the zoom's size; dvh, as the stage is. */
   width: max(104%, calc(104svh * 190 / 122));
+  width: max(104%, calc(104dvh * 190 / 122));
   aspect-ratio: 190 / 122;
   translate: -50% -50%;
 }
