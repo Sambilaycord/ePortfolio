@@ -10,6 +10,7 @@ The whole site is one cozy desk, told by scrolling. The camera zooms into the la
 
 - **Scroll-driven scenes.** Each section is a pinned scene whose progress drives a camera that dollies like a real lens (log-scale zoom), eased and speed-capped so a hard flick still plays as motion.
 - **A desk you can navigate.** Nav links zoom out to the whole desk and back into the section you chose, instead of gliding through every scene or teleporting.
+- **Every visit starts at the beginning.** A reload or a return through history opens on the hero, not wherever the last visit stopped. A link to a section, like `/#contact`, still opens on that section, and back and forward step between sections within a visit.
 - **Light and dark.** Daylight, with a sunset at the contact, or lamplight, with night. Pull the lamp's chain on the desk to switch. The window shows your own time of day.
 - **Works on phones.** A menu sheet, paged about text, and layouts tuned for small and landscape screens.
 - **Reduced motion.** With `prefers-reduced-motion`, the scenes lie flat and finished, in reading order.
@@ -28,6 +29,7 @@ The whole site is one cozy desk, told by scrolling. The camera zooms into the la
 | Share image | `next/og` (`ImageResponse`) |
 | Testing | [Playwright](https://playwright.dev/) end-to-end tests, ESLint, TypeScript |
 | Hosting | [Vercel](https://vercel.com/) |
+| Analytics | [Vercel Web Analytics](https://vercel.com/docs/analytics), optionally [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) |
 | Domain and DNS | [Cloudflare](https://www.cloudflare.com/), pointing `sambilaycord.site` at Vercel |
 
 ## Getting started
@@ -58,6 +60,7 @@ The Playwright suite in `tests/` runs against a production build on two devices,
 - the phone menu opens, returns focus on Escape, follows a link and folds away;
 - with reduced motion, every nav anchor lines up with its section;
 - a missing page returns a real 404, marked `noindex`, whose links lead home;
+- a link to a section opens on it, a reload opens on the hero wherever the page was scrolled, and back and forward step between sections;
 - `robots.txt`, `sitemap.xml`, `llms.txt`, the share image and the security headers are served.
 
 ```bash
@@ -66,6 +69,8 @@ npm run test:e2e
 ```
 
 To use a browser that is already installed instead, set `PW_CHANNEL`, e.g. `PW_CHANNEL=msedge npm run test:e2e`.
+
+The tests serve the site on port 3100 and, outside CI, reuse a server already running there. If another app holds that port, the tests run against it and fail all at once, so stop it first.
 
 ## Project structure
 
@@ -82,6 +87,7 @@ lib/                  Content and shared logic
   projects.ts         The projects shown as apps on the desktop
   pantry.ts           The tools on the pantry shelves
   seo.ts              Titles, descriptions and the structured data
+  start-at-hero.ts    The head script that opens return visits on the hero
 tests/                Playwright end-to-end tests
 public/images/        Photos used on the page
 ```
@@ -99,5 +105,7 @@ Most changes need no new code:
 Hosted on Vercel, building the `main` branch with the Next.js framework preset and default settings. The domain's DNS is on Cloudflare, with its records pointed at Vercel (DNS only, not proxied), so Vercel serves the site and its certificates directly. Every route is statically generated, so it can also run on any host that serves a Next.js build (`npm run build && npm run start`).
 
 Canonical links, the sitemap and the structured data use `https://www.sambilaycord.site`. Set `NEXT_PUBLIC_SITE_URL` to override it, for example on a preview deployment.
+
+Visits are counted by Vercel Web Analytics (enable it on the project's Analytics tab), which loads only in builds on Vercel. Cloudflare Web Analytics loads too when `NEXT_PUBLIC_CF_BEACON_TOKEN` is set to the site's beacon token; set it for Production only, so previews stay out of the stats.
 
 Every response carries security headers (frame blocking, `nosniff`, a strict referrer policy and a permissions policy), set in `next.config.ts`.
